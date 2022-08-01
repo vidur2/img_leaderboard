@@ -20,7 +20,7 @@ const LabelPage: NextPage = () => {
     let prevY: number | undefined;
 
     let [src, setSrc] = useState("");
-    let [id, setId] = useState(0);
+    let [id, setId] = useState(-1);
 
     const mouseDownHandle = (event: MouseEvent<HTMLCanvasElement>) => {
         const canvas = document.getElementById("imgCanvas") as HTMLCanvasElement;
@@ -87,10 +87,11 @@ const LabelPage: NextPage = () => {
             const ctx = canvas.getContext("2d");
             canvas.width = WIDTH;
             canvas.height = HEIGHT;
+            const submitButton = document.getElementById("submitButton") as HTMLButtonElement
 
             image.then((img) => {
-
                 if (img != null) {
+                    submitButton.disabled = false
                     setSrc(img.data);
                     setId(img.id)
                     const background = new Image();
@@ -101,7 +102,13 @@ const LabelPage: NextPage = () => {
                         ctx.drawImage(background,0,0);   
                     }
                 } else {
-                    canvas.innerHTML = "<p>All images labelled. Please check back later for more.</p>"
+                    setSrc(imageAddr)
+                    const background = new Image();
+                    background.src = imageAddr
+                    background.onload = function(){
+                        ctx.drawImage(background,0,0);   
+                    }
+                    submitButton.disabled = true;
                 }
             })
         }
@@ -153,7 +160,7 @@ const LabelPage: NextPage = () => {
                     </tr>
                 </table>
                 <button onClick={refreshBtn}>Clear Canvas</button>
-                <button onClick={submitRect}>Submit</button>
+                <button id="submitButton" onClick={submitRect}>Submit</button>
             </main>
         </div>
     )
@@ -213,6 +220,7 @@ async function fetchImage(window: Window, router: NextRouter): Promise<Images | 
 
     if (res.status == 200) {
         const body: ImageRes = await res.json();
+        console.log(body)
 
         if (body.valid) {
             return body.image
@@ -228,8 +236,8 @@ async function fetchImage(window: Window, router: NextRouter): Promise<Images | 
 
 function deleteElem(event: any) {
     const id = event.target.id
-        rectangles.splice(id, 1)
-        generateRect(document, rectangles)
+    rectangles.splice(id, 1)
+    generateRect(document, rectangles)
 }
 
 export default LabelPage;

@@ -19,7 +19,7 @@ const Login = () => {
     useEffect(() => {
         const username = window.sessionStorage.getItem("username");
         const password = window.sessionStorage.getItem("password");
-        
+
         if (username != null && password != null){
             login(username, password, router, window)
         }
@@ -33,7 +33,7 @@ const Login = () => {
             <main className={styles.main}>
                 <form onSubmit={handleSubmit}>
                     <p>Username: <input type="text" id="username"></input></p>
-                    <p>Password: <input type="text" id="password"></input></p>
+                    <p>Password: <input type="password" id="password"></input></p>
                     <button type="submit">Submit</button>
                 </form>
             </main>

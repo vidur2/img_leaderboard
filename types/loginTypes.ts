@@ -3,6 +3,11 @@ type LoginInformation = {
     password: string
 }
 
+type VerificationReq = {
+    jwt: string
+}
+
 export type {
-    LoginInformation
+    LoginInformation,
+    VerificationReq
 }

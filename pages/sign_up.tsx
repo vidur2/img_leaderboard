@@ -1,15 +1,24 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import styles from "../styles/Home.module.css"
 import { LoginInformation } from "../types/loginTypes";
 
 const SignUp = () => {
+    const router = useRouter();
+
+    useEffect(() => {
+        if (window.sessionStorage.getItem("username") != null && window.sessionStorage.getItem("password") != null) {
+            router.push("/label")
+        }
+    })
 
     const handleSignUp = async(event) => {
         event.preventDefault()
         const username = event.target.username.value;
         const password = event.target.password.value;
         const confirmed = event.target.confirm.value;
-        console.log("shit")
+
         if (password === confirmed) {
             console.log("shit1")
             const signUpInfo: LoginInformation = {
@@ -21,6 +30,9 @@ const SignUp = () => {
                 method: "POST",
                 body: JSON.stringify(signUpInfo)
             })
+
+            const main = document.getElementById("mainBody");
+            main.innerHTML = "<h1>Check your inbox for a verification email<h1>"
         }
     }
 
@@ -29,7 +41,7 @@ const SignUp = () => {
             <Head>
                 <title>Sign Up</title>
             </Head>
-            <main className={styles.main}>
+            <main id="mainBody" className={styles.main}>
                 <form onSubmit={handleSignUp}>
                 <p>Email: <input id="username" type="text"></input></p>
                 <p>Password: <input id="password" type="password"></input></p>

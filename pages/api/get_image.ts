@@ -4,9 +4,8 @@ import prisma from "../../prisma/prisma";
 import { LoginInformation } from "../../types/loginTypes"
 import { createHash } from "crypto";
 
-const hasher = createHash("sha256")
-
 async function checkDb(loginInformation: LoginInformation): Promise<boolean> {
+    const hasher = createHash("sha256")
     const infor = await prisma.user.findUnique({
         where: {
             username: loginInformation.username
@@ -35,7 +34,6 @@ async function getLatestImage() {
                 state: LabelState.InProgress
             }
         })
-
         await prisma.images.updateMany({
             where: {
                 state: LabelState.InProgress
@@ -47,16 +45,17 @@ async function getLatestImage() {
         })
     }
     
-
-    await prisma.images.update({
-        where: {
-            id: unlabelledImage.id
-        },
-
-        data: {
-            state: LabelState.InProgress
-        }
-    })
+    if (unlabelledImage != null) {
+        await prisma.images.update({
+            where: {
+                id: unlabelledImage.id
+            },
+    
+            data: {
+                state: LabelState.InProgress
+            }
+        })
+    }
 
     return unlabelledImage 
 }

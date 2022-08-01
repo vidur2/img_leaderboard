@@ -3,9 +3,8 @@ import { LoginInformation } from "../../types/loginTypes";
 import { createHash } from "crypto"
 import prisma from "../../prisma/prisma";
 
-const hasher = createHash("sha256")
-
 async function checkDb(loginInformation: LoginInformation): Promise<boolean> {
+    const hasher = createHash("sha256")
     const infor = await prisma.user.findUnique({
         where: {
             username: loginInformation.username
