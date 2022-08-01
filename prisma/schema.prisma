@@ -1,0 +1,36 @@
+datasource db {
+    provider = "postgresql"
+    url = "postgresql://vidurmodgil:vidur@localhost:5432/imgDb"
+}
+
+generator generator {
+    provider = "prisma-client-js"
+}
+
+model User {
+  username String   @id @unique
+  password String
+  images   Images[]
+  role Role
+}
+
+model Images {
+  id           Int    @id @unique @default(autoincrement())
+  data         String
+  user         User?   @relation(fields: [userUsername], references: [username])
+  rectangles String[]
+  userUsername String
+  state LabelState
+}
+
+enum LabelState {
+    InProgress
+    UnderReview
+    Done
+    NotStarted
+}
+
+enum Role {
+  Labeller
+  Admin
+}
