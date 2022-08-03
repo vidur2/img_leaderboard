@@ -1,33 +1,34 @@
-datasource db {
-    provider = "postgresql"
-    url = "postgresql://vidurmodgil:vidur@localhost:5432/imgDb"
+generator generator {
+  provider = "prisma-client-js"
 }
 
-generator generator {
-    provider = "prisma-client-js"
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://vidurmodgil:vidur@localhost:5432/imgDb"
 }
 
 model User {
   username String   @id @unique
   password String
+  role     Role
   images   Images[]
-  role Role
 }
 
 model Images {
-  id           Int    @id @unique @default(autoincrement())
+  id           Int        @id @unique @default(autoincrement())
   data         String
-  user         User?   @relation(fields: [userUsername], references: [username])
-  rectangles String[]
-  userUsername String
-  state LabelState
+  rectangles   String[]
+  userUsername String?
+  state        LabelState
+  user         User?      @relation(fields: [userUsername], references: [username])
 }
 
 enum LabelState {
-    InProgress
-    UnderReview
-    Done
-    NotStarted
+  InProgress
+  UnderReview
+  ReviewStarted
+  Done
+  NotStarted
 }
 
 enum Role {

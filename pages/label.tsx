@@ -8,8 +8,8 @@ import { LoginInformation } from "../types/loginTypes";
 import { Images } from "@prisma/client";
 
 const imageAddr = "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bGVuc3xlbnwwfHwwfHw%3D&w=1000&q=80";
-const WIDTH  = 963;
-const HEIGHT = 657;
+const WIDTH  = 1920;
+const HEIGHT = 1080;
 
 let rectangles = new Array();
 
@@ -74,43 +74,45 @@ const LabelPage: NextPage = () => {
 
             // Make sure the image is loaded first otherwise nothing will draw.
             background.onload = function(){
-                ctx.drawImage(background,0,0);   
+                ctx.drawImage(background,0,0);  
             }
         }
     }
 
     useEffect(() => {
         const canvas = document.getElementById("imgCanvas") as HTMLCanvasElement;
+
         const image = fetchImage(window, router)
-
-        if (canvas != undefined) {
-            const ctx = canvas.getContext("2d");
-            canvas.width = WIDTH;
-            canvas.height = HEIGHT;
-            const submitButton = document.getElementById("submitButton") as HTMLButtonElement
-
-            image.then((img) => {
-                if (img != null) {
-                    submitButton.disabled = false
-                    setSrc(img.data);
-                    setId(img.id)
-                    const background = new Image();
-                    background.src = img.data;
-
-                    // Make sure the image is loaded first otherwise nothing will draw.
-                    background.onload = function(){
-                        ctx.drawImage(background,0,0);   
+        if (src === "") {
+            if (canvas != undefined) {
+                const ctx = canvas.getContext("2d");
+                canvas.width = WIDTH;
+                canvas.height = HEIGHT;
+                const submitButton = document.getElementById("submitButton") as HTMLButtonElement
+    
+                image.then((img) => {
+                    if (img != null) {
+                        submitButton.disabled = false
+                        setSrc(img.data);
+                        setId(img.id)
+                        const background = new Image();
+                        background.src = img.data;
+    
+                        // Make sure the image is loaded first otherwise nothing will draw.
+                        background.onload = function(){
+                            ctx.drawImage(background,0,0);   
+                        }
+                    } else {
+                        setSrc(imageAddr)
+                        const background = new Image();
+                        background.src = imageAddr
+                        background.onload = function(){
+                            ctx.drawImage(background,0,0);   
+                        }
+                        submitButton.disabled = true;
                     }
-                } else {
-                    setSrc(imageAddr)
-                    const background = new Image();
-                    background.src = imageAddr
-                    background.onload = function(){
-                        ctx.drawImage(background,0,0);   
-                    }
-                    submitButton.disabled = true;
-                }
-            })
+                })
+            }
         }
     })
 
@@ -169,8 +171,8 @@ const LabelPage: NextPage = () => {
 function scaleRect(rectangle: Rectangle): Rectangle {
     const retRect: Rectangle = {
         x1: rectangle.x1/WIDTH,
-        x2: rectangle.x2/HEIGHT,
-        y1: rectangle.y1/WIDTH,
+        x2: rectangle.x2/WIDTH,
+        y1: rectangle.y1/HEIGHT,
         y2: rectangle.y2/HEIGHT
     }
 
@@ -219,8 +221,7 @@ async function fetchImage(window: Window, router: NextRouter): Promise<Images | 
     })
 
     if (res.status == 200) {
-        const body: ImageRes = await res.json();
-        console.log(body)
+        const body: ImageRes = await res.json()
 
         if (body.valid) {
             return body.image

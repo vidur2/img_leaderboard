@@ -7,7 +7,13 @@ type VerificationReq = {
     jwt: string
 }
 
+type YtRequest = {
+    login: LoginInformation,
+    link: string
+}
+
 export type {
     LoginInformation,
-    VerificationReq
+    VerificationReq,
+    YtRequest
 }

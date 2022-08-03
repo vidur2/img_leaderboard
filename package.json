@@ -10,13 +10,17 @@
   "dependencies": {
     "@prisma/client": "^3.15.2",
     "crypt": "^0.0.2",
+    "ffmpeg": "^0.0.4",
+    "fs": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "next": "12.2.3",
     "nodemailer": "^6.7.7",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "ytdl-core": "^4.11.0"
   },
   "devDependencies": {
+    "@types/ffmpeg": "^1.0.4",
     "@types/react": "^18.0.15",
     "eslint": "8.20.0",
     "eslint-config-next": "12.2.3",
