@@ -7,6 +7,11 @@ type Rectangle = {
     y2: number
 }
 
+type LeaderBoardPosition = {
+    username: string,
+    count: number
+}
+
 type ImageRes = {
     image: Images | undefined,
     valid: boolean
@@ -21,5 +26,6 @@ type ImagePost = {
 export type {
     Rectangle,
     ImageRes,
-    ImagePost
+    ImagePost,
+    LeaderBoardPosition
 }

@@ -8,12 +8,21 @@ const prismaTyped = prisma as PrismaClient
 async function handleImage(imgInfo: ImageJudge) {
     switch (imgInfo.judgement){
         case Judgement.Good:
-            await prismaTyped.images.update({
+            const img = await prismaTyped.images.update({
                 where: {
                     id: imgInfo.id
                 },
                 data: {
-                    state: LabelState.Done
+                    state: LabelState.Done,
+                }
+            })
+
+            await prismaTyped.user.update({
+                where: {
+                    username: img.userUsername
+                },
+                data: {
+                    imgCount: { increment: 1 }
                 }
             })
             break
