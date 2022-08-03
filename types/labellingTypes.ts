@@ -8,6 +8,7 @@ type Rectangle = {
 }
 
 type LeaderBoardPosition = {
+    rank: number,
     username: string,
     count: number
 }

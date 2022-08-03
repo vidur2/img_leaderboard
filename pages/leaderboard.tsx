@@ -2,6 +2,26 @@ import Head from "next/head"
 import { NextPage } from "next/types"
 import { LeaderBoardPosition } from "../types/labellingTypes"
 import styles from "../styles/Home.module.css"
+import { Table } from "antd"
+
+const columns = [
+    {
+        title: "Rank",
+        dataIndex: "rank",
+        key: "rank"
+    },
+    {
+        title: "Username",
+        dataIndex: "username",
+        key: "username"
+    },
+
+    {
+        title: "Images Labelled",
+        dataIndex: "count",
+        key: "count"
+    }
+]
 
 const Leaderboard: NextPage<LeaderboardProps> = (leaderboard: LeaderboardProps) => {
     const sorted = leaderboard.leaderboard.sort();
@@ -11,11 +31,7 @@ const Leaderboard: NextPage<LeaderboardProps> = (leaderboard: LeaderboardProps) 
                 <title>leaderboard</title>
             </Head>
             <main className={styles.main}>
-                <table>
-                    {sorted.map((pos: LeaderBoardPosition, index: number) => {
-                        return <tr key={index}><td>{index + 1}</td><td>{pos.username}</td><td>{pos.count}</td></tr>
-                    })}
-                </table>
+                <Table dataSource={leaderboard.leaderboard} columns={columns}></Table>
             </main>
         </div>
     )

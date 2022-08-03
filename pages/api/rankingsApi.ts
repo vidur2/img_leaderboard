@@ -9,18 +9,20 @@ async function fetchRankings(): Promise<Array<LeaderBoardPosition>> {
     const top10 = prismaTyped.user.findMany({
         orderBy: {
             imgCount: "desc"
-        },
-        take: 10
+        }
     })
 
     const retArr: Array<LeaderBoardPosition> = new Array();
 
+    let counter = 1;
     (await top10).forEach((user) => {
         const rank: LeaderBoardPosition = {
+            rank: counter,
             username: user.username,
             count: user.imgCount
         }
         retArr.push(rank)
+        counter += 1
     })
 
     return retArr

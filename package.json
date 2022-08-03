@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@prisma/client": "^3.15.2",
+    "antd": "^4.22.3",
     "crypt": "^0.0.2",
     "ffmpeg": "^0.0.4",
     "fs": "^0.0.1-security",
