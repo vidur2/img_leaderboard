@@ -3,7 +3,9 @@ import { NextRouter, useRouter } from "next/router"
 import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css"
 import { LoginInformation } from "../types/loginTypes";
-import { Button, Form, Input, Spin } from 'antd';
+import { Button, Form, Input, PageHeader, Spin } from 'antd';
+import { Header, Content } from "antd/lib/layout/layout";
+import NavbarComponent from "../components/navbar";
 
 const Login = () => {
     const router = useRouter();
@@ -40,7 +42,9 @@ const Login = () => {
                 <Head>
                     <title>Login</title>
                 </Head>
+                <Header><NavbarComponent /></Header>
                 <main className={styles.main}>
+                {/* <PageHeader className="site-page-header" title="User Login"></PageHeader> */}
                 <Form
                     name="basic"
                     labelCol={{ span: 8 }}

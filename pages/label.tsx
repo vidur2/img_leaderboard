@@ -6,6 +6,9 @@ import styles from "../styles/Home.module.css";
 import { NextRouter, useRouter } from "next/router";
 import { LoginInformation } from "../types/loginTypes";
 import { Images } from "@prisma/client";
+import { Button } from "antd";
+import { Header } from "antd/lib/layout/layout";
+import NavbarComponent from "../components/navbar";
 
 const imageAddr = "https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bGVuc3xlbnwwfHwwfHw%3D&w=1000&q=80";
 const WIDTH  = 1920;
@@ -149,20 +152,18 @@ const LabelPage: NextPage = () => {
             <Head>
                 <title>Label Image</title>
             </Head>
-
+            <Header><NavbarComponent /></Header>
             <main className={styles.main}>
                 <table>
                     <tr>
-                        <td>
                         <canvas id="imgCanvas" onMouseDown={mouseDownHandle}></canvas>
-                        </td>
-                        <td>
-                        <div id="deleteHandler"></div>
-                        </td>
                     </tr>
                 </table>
-                <button onClick={refreshBtn}>Clear Canvas</button>
-                <button id="submitButton" onClick={submitRect}>Submit</button>
+
+                <table>
+                    <td><Button danger type="primary" onClick={refreshBtn}>Clear Canvas</Button></td>
+                    <td><Button type="primary" id="submitButton" onClick={submitRect}>Submit</Button></td>
+                </table>
             </main>
         </div>
     )

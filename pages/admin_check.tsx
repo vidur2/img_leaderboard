@@ -1,4 +1,5 @@
 import { Images } from "@prisma/client";
+import { Button } from "antd";
 import { useRouter } from "next/router"
 import { createContext, useEffect, useState } from "react"
 import styles from "../styles/Home.module.css"
@@ -191,8 +192,8 @@ const VerifyImage = () => {
             <main className={styles.main}>
                 <canvas id="imgCanvas"></canvas>
                 <table>
-                    <td><button onClick={onGood}>Good</button></td>
-                    <td><button onClick={onBad}>Bad</button></td>
+                    <td><Button danger type="primary" onClick={onBad}>Bad</Button></td>
+                    <td><Button type="primary" onClick={onGood}>Good</Button></td>
                 </table>
             </main>
         </div>

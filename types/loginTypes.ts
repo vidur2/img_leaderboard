@@ -1,3 +1,5 @@
+import { Images, Role } from "@prisma/client"
+
 type LoginInformation = {
     username: string,
     password: string
@@ -12,8 +14,14 @@ type YtRequest = {
     link: string
 }
 
+type UserInformation = {
+    role: Role,
+    images: Images[]
+}
+
 export type {
     LoginInformation,
     VerificationReq,
-    YtRequest
+    YtRequest,
+    UserInformation
 }

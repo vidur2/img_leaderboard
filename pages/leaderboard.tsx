@@ -3,6 +3,8 @@ import { NextPage } from "next/types"
 import { LeaderBoardPosition } from "../types/labellingTypes"
 import styles from "../styles/Home.module.css"
 import { Table } from "antd"
+import { Header, Content } from "antd/lib/layout/layout"
+import NavbarComponent from "../components/navbar"
 
 const columns = [
     {
@@ -30,9 +32,12 @@ const Leaderboard: NextPage<LeaderboardProps> = (leaderboard: LeaderboardProps) 
             <Head>
                 <title>leaderboard</title>
             </Head>
-            <main className={styles.main}>
+            <Header>
+                <NavbarComponent />
+            </Header>
+            <Content className={styles.main}>
                 <Table dataSource={leaderboard.leaderboard} columns={columns}></Table>
-            </main>
+            </Content>
         </div>
     )
 }

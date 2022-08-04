@@ -1,3 +1,4 @@
+import { Button, Form, Input } from "antd";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -13,14 +14,9 @@ const SignUp = () => {
         }
     })
 
-    const handleSignUp = async(event) => {
-        event.preventDefault()
-        const username = event.target.username.value;
-        const password = event.target.password.value;
-        const confirmed = event.target.confirm.value;
+    const handleSignUp = async({username, password, confirmed}) => {
 
         if (password === confirmed) {
-            console.log("shit1")
             const signUpInfo: LoginInformation = {
                 username,
                 password
@@ -42,12 +38,44 @@ const SignUp = () => {
                 <title>Sign Up</title>
             </Head>
             <main id="mainBody" className={styles.main}>
-                <form onSubmit={handleSignUp}>
-                <p>Email: <input id="username" type="text"></input></p>
-                <p>Password: <input id="password" type="password"></input></p>
-                <p>Confirm: <input id="confirm" type="password"></input></p>
-                <button type="submit">Submit</button>
-                </form>
+            <Form
+                name="basic"
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
+                initialValues={{ remember: true }}
+                onFinish={handleSignUp}
+                autoComplete="off"
+                >
+                <Form.Item
+                    label="Username"
+                    name="username"
+                    rules={[{ required: true, message: 'Please input your username!' }]}
+                >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                    label="Password"
+                    name="password"
+                    rules={[{ required: true, message: 'Please input your password!' }]}
+                >
+                    <Input.Password />
+                </Form.Item>
+
+                <Form.Item
+                    label="Confirm"
+                    name="confirmed"
+                    rules={[{ required: true, message: 'Please confirm your password!' }]}
+                >
+                    <Input.Password />
+                </Form.Item>
+
+                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                    <Button type="primary" htmlType="submit">
+                        Submit
+                    </Button>
+                </Form.Item>
+                </Form>
             </main>
         </div>
     )
