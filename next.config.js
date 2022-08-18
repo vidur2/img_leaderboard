@@ -3,6 +3,7 @@ module.exports = {
   env: {
     emailUsername: "vmod2005@gmail.com",
     emailPassword: "fmmdbgopwzlbhacm",
-    jwtKey: "QNQ5RHKJS7XBDIEF71SJ"
+    jwtKey: "QNQ5RHKJS7XBDIEF71SJ",
+    saltLength: 64
   }
 }

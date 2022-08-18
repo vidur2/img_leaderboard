@@ -94,7 +94,7 @@ async function login(username: string, password: string, router: NextRouter, win
     if (res.status == 200) {
         window.sessionStorage.setItem("username", username);
         window.sessionStorage.setItem("password", password)
-        router.push("/label")
+        router.push("/")
     } else {
         window.sessionStorage.clear()
         window.location.reload()

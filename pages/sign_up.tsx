@@ -10,7 +10,7 @@ const SignUp = () => {
 
     useEffect(() => {
         if (window.sessionStorage.getItem("username") != null && window.sessionStorage.getItem("password") != null) {
-            router.push("/label")
+            router.push("/")
         }
     })
 
